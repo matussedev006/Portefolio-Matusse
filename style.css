@@ -1,0 +1,429 @@
+/* =========================================================
+   1. RESET — apagar os estilos padrão inconsistentes do browser
+   ========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  /* box-sizing: border-box = padding e border contam DENTRO da largura
+     definida, não somam a ela. Sem isto, largura + padding "rebenta"
+     o layout. É a primeira linha que qualquer CSS profissional tem. */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* faz os links "#secao" da nav deslizarem suavemente até lá,
+     em vez de saltarem de forma seca */
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  /* imagem nunca ultrapassa o pai; display:block remove um espaço
+     fantasma que <img> tem por defeito (comportamento de linha de texto) */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* =========================================================
+   2. DESIGN TOKENS — a "paleta" do site, num único lugar
+   ========================================================= */
+:root {
+  /* Cores: nomeei por FUNÇÃO (bg, surface, accent), não por
+     aparência ("azul-escuro-2"). Assim, se um dia quiseres trocar
+     o accent de teal para outra cor, mudas UMA linha e o site
+     inteiro atualiza — não precisas de caçar hex codes espalhados. */
+  --bg: #0b1120;          /* fundo geral da página */
+  --surface: #121a2b;      /* fundo de cards/nav — um tom acima do bg */
+  --surface-alt: #0e1524;  /* fundo alternado de secções */
+  --border: #223049;       /* linhas e contornos subtis */
+  --text: #e7edf5;         /* texto principal */
+  --text-muted: #8a97ad;   /* texto secundário (datas, legendas) */
+  --accent: #2dd9b8;       /* teal — a tua cor de assinatura */
+  --accent-warm: #f2b84b;  /* âmbar — só para destaques pontuais (CTA) */
+
+  /* Espaçamento em escala: em vez de inventar 13px, 22px, 37px
+     à medida que vais escrevendo, usa-se uma progressão fixa.
+     Isto cria ritmo visual — tudo parece "alinhado" mesmo sem
+     reparares porquê. */
+  --space-1: 0.5rem;   /* 8px  */
+  --space-2: 1rem;     /* 16px */
+  --space-3: 1.5rem;   /* 24px */
+  --space-4: 2.5rem;   /* 40px */
+  --space-5: 4rem;     /* 64px */
+
+  --radius: 10px;
+  --max-width: 1100px;
+
+  /* Fontes: display (títulos, tem carácter) + body (parágrafos,
+     legível) + mono (labels de terminal). Três papéis, três fontes. */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Importa as fontes do Google Fonts. Alternativa mais rápida:
+   colocar <link> no <head> do HTML em vez de @import — @import
+   bloqueia o carregamento um pouco mais, mas para um portefólio
+   pequeno a diferença é imperceptível. */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+
+/* =========================================================
+   3. BASE — como o texto e o fundo se comportam por defeito
+   ========================================================= */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  /* line-height 1.6 = respiração entre linhas de texto.
+     Sem isto, parágrafos ficam "sufocados" e difíceis de ler. */
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2vw + 1rem, 1.9rem);
+  /* clamp(mínimo, valor-flexível, máximo): o tamanho de fonte
+     cresce com a largura do ecrã, mas nunca fica pequeno demais
+     no telemóvel nem gigante demais no desktop. Isto substitui
+     ter de escrever várias media queries só para ajustar font-size. */
+  margin-bottom: var(--space-3);
+}
+
+h4 {
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+p {
+  color: var(--text-muted);
+}
+
+
+/* =========================================================
+   4. LAYOUT — container e ritmo entre secções
+   ========================================================= */
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  /* margin-inline: auto = centra horizontalmente. É a versão
+     moderna de "margin: 0 auto" — funciona igual em LTR/RTL. */
+  padding-inline: var(--space-3);
+}
+
+.section {
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--border);
+}
+
+.section:nth-of-type(even) {
+  background: var(--surface-alt);
+  /* alterna o fundo entre secções consecutivas. É um truque simples
+     que ajuda o olho a perceber "aqui acaba um bloco, começa outro"
+     sem precisares de linhas divisórias grossas. */
+}
+
+/* O prompt "$" antes de cada título de secção — a nossa assinatura
+   visual. ::before insere conteúdo sem precisares de um elemento
+   extra no HTML. */
+.section h3::before {
+  content: '$ ';
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   5. HERO — a primeira coisa que alguém vê
+   ========================================================= */
+.hero {
+  padding-block: var(--space-5);
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(45, 217, 184, 0.12), transparent 60%),
+    var(--bg);
+  /* um gradiente radial muito subtil atrás do nome — dá profundidade
+     sem ser um "banner" chapado. rgba com alpha baixo (0.12) garante
+     que fica discreto. */
+}
+
+.hero__photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  /* border-radius: 50% num elemento quadrado = círculo perfeito */
+  object-fit: cover;
+  /* object-fit: cover = a imagem preenche o círculo sem esticar/deformar,
+     cortando o excesso. Essencial sempre que forças uma imagem
+     retangular dentro de um formato diferente. */
+  margin-inline: auto;
+  margin-bottom: var(--space-3);
+  border: 2px solid var(--accent);
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4vw + 1rem, 3rem);
+  position: relative;
+  display: inline-block;
+}
+
+/* cursor de terminal a piscar ao lado do nome */
+.hero h1::after {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.hero__roles {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  margin-top: var(--space-2);
+  font-size: 1rem;
+}
+
+.hero__contacts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  /* display:flex + gap é a forma moderna de espaçar itens numa linha.
+     gap substitui truques antigos com margin em cada <li>. */
+}
+
+.hero__contacts a {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.hero__contacts a:hover {
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   6. NAV — barra fixa no topo
+   ========================================================= */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  /* sticky = a nav comporta-se normalmente até o utilizador começar
+     a fazer scroll para além dela, depois "cola-se" ao topo.
+     backdrop-filter: blur cria aquele efeito de vidro fosco quando
+     conteúdo passa por baixo. */
+}
+
+.site-nav ul {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  padding-block: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.site-nav a {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a.is-active {
+  color: var(--accent);
+  /* .is-active é uma classe que o JavaScript vai adicionar/remover
+     conforme a secção visível no ecrã (scroll-spy) — o CSS já está
+     pronto para reagir a isso. */
+}
+
+
+/* =========================================================
+   7. TIMELINE — formação e experiência
+   ========================================================= */
+.timeline-item {
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--border);
+  margin-bottom: var(--space-4);
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  /* um "ponto" sobre a linha vertical, como marcador de evento numa
+     linha do tempo. position:absolute posiciona-o relativo ao
+     .timeline-item (que tem position:relative) */
+}
+
+.timeline-item__meta {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-block: 0.25rem var(--space-1);
+}
+
+
+/* =========================================================
+   8. GRIDS — skills e projetos
+   ========================================================= */
+.skills-grid,
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-3);
+  /* auto-fit + minmax(240px, 1fr) = "cabe quantas colunas de pelo
+     menos 240px couberem, e distribui o espaço sobrante entre elas".
+     Isto dá responsividade automática — SEM escrever uma única
+     media query para este grid. Em ecrã largo dá 3-4 colunas,
+     em telemóvel cai para 1, sozinho. */
+}
+
+.skill-card,
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.skill-card:hover,
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  /* transform:translateY move o card 4px para cima no hover.
+     Como está dentro de "transition", o movimento é animado,
+     não instantâneo — é isto que dá a sensação de "resposta viva". */
+}
+
+
+/* =========================================================
+   9. BADGES — certificações como "chips"
+   ========================================================= */
+.badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.badge-list li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  /* border-radius muito alto (999px) força a forma de "pílula" */
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+
+/* =========================================================
+   10. BOTÃO — call-to-action de contacto
+   ========================================================= */
+.btn {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  border-radius: var(--radius);
+  transition: opacity 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+
+/* =========================================================
+   11. FOOTER
+   ========================================================= */
+.site-footer {
+  text-align: center;
+  padding-block: var(--space-3);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+
+/* =========================================================
+   12. ACESSIBILIDADE — detalhes que separam amador de profissional
+   ========================================================= */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  /* :focus-visible só mostra o contorno quando alguém navega por
+     TECLADO (Tab), não quando clicas com o rato. Sem isto, quem usa
+     leitor de ecrã ou teclado perde-se no site — e é um critério
+     real de acessibilidade que recrutadores técnicos verificam. */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero h1::after { animation: none; }
+  * { transition: none !important; }
+  /* alguns utilizadores configuram o sistema operativo para reduzir
+     animação (por enjoo, epilepsia fotossensível, etc.). Este bloco
+     respeita essa preferência desligando as nossas animações. */
+}
+
+
+/* =========================================================
+   13. RESPONSIVO — ajustes para ecrãs pequenos
+   ========================================================= */
+@media (max-width: 640px) {
+  .site-nav ul {
+    gap: var(--space-2);
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .hero__contacts {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .section {
+    padding-block: var(--space-4);
+  }
+  /* Nota: o grid de skills/projetos e a maior parte do layout já
+     é responsivo por construção (clamp, auto-fit, flex-wrap) —
+     por isso esta media query é pequena. Isso é sinal de bom CSS:
+     quanto menos "correções de emergência" para mobile precisares,
+     melhor desenhaste a base. */
+}

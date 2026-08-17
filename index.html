@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eufrasio Matusse — Portefólio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    
+    <header class="hero" id="topo">
+        <div class="container hero__content">
+            <img class="hero__photo" src="images/perfil.png" alt="Fotografia de Eufrasio Matusse" width="200" height="180" />
+            <h1>Eufrasio Matusse</h1>
+            <p class="hero__roles">Full Stack Developer · Help Desk · Project &amp; Product Management</p>
+
+            <ul class="hero__contacts">
+                <li><a href="mailto:eufrasiopedro385@gmail.com">eufrasiopedro385@gmail.com</a></li>
+                <li><a href="tel:+258861175799">+258 86 117 5799</a></li>
+                <li><a href="https://github.com/math006-fauh" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/eufrasiomatusse" target="_blank" rel="noopener">LinkedIn</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- NAV: separada do hero para poder ficar "sticky" independentemente -->
+    <nav class="site-nav" id="nav-principal">
+        <div class="container">
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#formacao">Formação</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experiencia">Experiência</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+
+        <section id="sobre" class="section">
+            <div class="container">
+                <h3>Sobre Mim</h3>
+                <p>Actualmente a cursar <strong>Engenharia de Tecnologias e Sistemas de Informação</strong> na
+                   Universidade Joaquim Chissano, Faculdade de Ciências e Tecnologias. Experiência prática em
+                   Desenvolvimento Full Stack, suporte técnico (HelpDesk), manutenção de hardware e
+                   Project &amp; Product Management.</p>
+            </div>
+        </section>
+
+        <section id="formacao" class="section">
+            <div class="container">
+                <h3>Formação Académica</h3>
+
+                <!-- cada item da timeline é um div: agrupamento visual, não conteúdo semântico próprio -->
+                <div class="timeline-item">
+                    <h4>Licenciatura em Engenharia de Tecnologias e Sistemas de Informação</h4>
+                    <p class="timeline-item__meta">Universidade Joaquim Chissano · 2024 – Presente</p>
+                    <p>Formação abrangente em desenvolvimento de software, sistemas computacionais, redes de
+                       computadores e princípios de engenharia.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Ensino Secundário</h4>
+                    <p class="timeline-item__meta">Escola Secundária de Manje · 2019 – 2023</p>
+                    <p>Ciências Exactas e Desenho Geométrico Descritivo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="container">
+                <h3>Technical Skills</h3>
+
+                <!-- grid de cards: div é a escolha certa porque é puro agrupamento p/ layout -->
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h4>Desenvolvimento Web</h4>
+                        <p>HTML, CSS, JavaScript, React, Next.js, Express.js, Node.js</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Linguagens</h4>
+                        <p>Java, Python, TypeScript, JavaScript</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Bases de Dados</h4>
+                        <p>MySQL, PostgreSQL, Supabase, Prisma</p>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Outras Áreas</h4>
+                        <p>IT Support, Análise de Sistemas, Scrum, Gestão de Projectos,
+                           Segurança de Sistemas, Cloud/Docker/Kubernetes (essencial)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiencia" class="section">
+            <div class="container">
+                <h3>Experiência Profissional</h3>
+
+                <div class="timeline-item">
+                    <h4>Técnico de Informática (Voluntariado)</h4>
+                    <p class="timeline-item__meta">Associação de Mulheres Jornalistas para o Empoderamento da
+                       Rapariga na Comunidade, Tete · 2022 – 2023</p>
+                    <p>Suporte técnico e resolução de problemas em computadores e software; manutenção e
+                       configuração de sistemas.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Mentoria Comunitária</h4>
+                    <p class="timeline-item__meta">AMODEFA, Tete · 2022 – 2024</p>
+                    <p>Ações comunitárias, organização de eventos e campanhas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="certificacoes" class="section">
+            <div class="container">
+                <h3>Capacitações e Certificações</h3>
+                <ul class="badge-list">
+                    <li>Curso de Programação em Python — Santander Open Academy</li>
+                    <li>Capacitação em Matéria de Bitcoin — Trezor Academy</li>
+                    <li>Imersão IA 4ª Edição — Alura e Google</li>
+                    <li>Night Hack First Edition — MozCyber Community</li>
+                    <li>NLW Pocket para Iniciantes Full Stack — Rocketseat</li>
+                    <li>Programa Source Jam — MozDevz</li>
+                    <li>NLW Operator Full Stack — Rocketseat</li>
+                    <li>Coding Sprint AIxProduct Edition — MozDevz</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projetos" class="section">
+            <div class="container">
+                <h3>Projectos</h3>
+
+                <!-- article, não div: cada projeto é conteúdo autónomo e reutilizável fora deste contexto -->
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <h4>Plataforma Open Source de Gestão Escolar</h4>
+                        <p>Aproxima Professor, Aluno e Encarregado de Educação no acompanhamento académico.</p>
+                    </article>
+                    <article class="project-card">
+                        <h4>Sistema ERP com IA</h4>
+                        <p>Voltado para Pequenas e Médias Empresas.</p>
+                    </article>
+                    <article class="project-card">
+                        <h4>Sistema de Gestão de Prompts</h4>
+                    </article>
+                    <article class="project-card">
+                        <h4>Sistema de Gestão de Salões</h4>
+                    </article>
+                    <article class="project-card">
+                        <h4>Sistema de Gestão para Escolas de Condução</h4>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="section">
+            <div class="container">
+                <h3>Vamos Conversar</h3>
+                <p>Aberto a colaborações e oportunidades.</p>
+                <a class="btn" href="mailto:eufrasiopedro385@gmail.com">Enviar E-mail</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>Eufrasio Pedro Matusse | Portefólio — <span id="ano-corrente">2026</span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
