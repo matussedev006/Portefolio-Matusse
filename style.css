@@ -225,12 +225,12 @@ p {
 
 
 /* =========================================================
-   6. NAV — barra fixa no topo
+   6. NAV — barra fixa no topo com seleção de idiomas
    ========================================================= */
 .site-nav {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
   background: rgba(11, 17, 32, 0.85);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
@@ -240,13 +240,22 @@ p {
      conteúdo passa por baixo. */
 }
 
-.site-nav ul {
+.site-nav__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+}
+
+.site-nav__links {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: var(--space-4);
-  padding-block: var(--space-2);
   font-family: var(--font-mono);
   font-size: 0.9rem;
+  padding-block: 0;
 }
 
 .site-nav a {
@@ -260,6 +269,147 @@ p {
   /* .is-active é uma classe que o JavaScript vai adicionar/remover
      conforme a secção visível no ecrã (scroll-spy) — o CSS já está
      pronto para reagir a isso. */
+}
+
+/* --- Idiomas / Language Switcher --- */
+.site-nav__lang {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 4px;
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: var(--text);
+}
+
+.lang-btn.is-active {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.lang-divider {
+  color: var(--border);
+  font-size: 0.75rem;
+  user-select: none;
+  padding-inline: 2px;
+}
+
+/* --- Dropdown de Outras Línguas --- */
+.more-lang-dropdown {
+  position: relative;
+}
+
+.more-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.more-lang-btn:hover,
+.more-lang-btn[aria-expanded="true"] {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.more-lang-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  min-width: 220px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.more-lang-menu[hidden] {
+  display: none;
+}
+
+.more-lang-title {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+
+.lang-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-family: var(--font-mono);
+}
+
+/* Integração e limpeza do widget Google Translate */
+.goog-te-gadget {
+  font-family: var(--font-mono) !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+  width: 100%;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  padding: 6px 8px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.82rem !important;
+  outline: none;
+  cursor: pointer;
+}
+
+.goog-te-gadget .goog-te-combo:focus {
+  border-color: var(--accent) !important;
+}
+
+.goog-te-gadget > span,
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
 }
 
 
@@ -406,13 +556,27 @@ button:focus-visible {
 /* =========================================================
    13. RESPONSIVO — ajustes para ecrãs pequenos
    ========================================================= */
-@media (max-width: 640px) {
-  .site-nav ul {
+@media (max-width: 768px) {
+  .site-nav__container {
+    flex-direction: column;
     gap: var(--space-2);
-    font-size: 0.8rem;
-    flex-wrap: wrap;
+    padding-block: var(--space-2);
   }
 
+  .site-nav__links {
+    gap: var(--space-2);
+    font-size: 0.82rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .more-lang-menu {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 640px) {
   .hero__contacts {
     flex-direction: column;
     gap: var(--space-1);
